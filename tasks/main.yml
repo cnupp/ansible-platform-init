@@ -1,4 +1,6 @@
 ---
+- debug: var=hostvars
+
 - name: install python pip
   apt: name=python-pip
 
@@ -19,11 +21,21 @@
     - {key: router/nginx/http/server_tokens, value: "off"}
     - {key: router/nginx/http/include, value: mime.types}
     - {key: router/nginx/http/default_type, value: application/octet-stream}
-    - {key: router/nginx/http/access_log, value: /var/logs/nginx/access.log}
+    - {key: router/nginx/http/access_log, value: /var/log/nginx/access.log}
     - {key: router/nginx/http/log_format, value: "main  '$remote_addr - $remote_user [$time_local] $request $status $body_bytes_sent $http_referer $http_user_agent $http_x_forwarded_for $server_name  to: $upstream_addr: $request upstream_response_time $upstream_response_time msec $msec request_time $request_time'"}
-    - {key: router/nginx/http/access_log, value: /var/logs/nginx/access.log main}
+    - {key: router/nginx/http/access_log, value: /var/log/nginx/access.log}
     - {key: router/nginx/http/sendfile, value: "off"}
     - {key: router/nginx/http/tcp_nopush, value: "off"}
     - {key: router/nginx/http/tcp_nopush, value: "off"}
     - {key: router/nginx/http/keepalive_timeout, value: 65}
     - {key: router/nginx/http/gzip, value: "on"}
+
+- name: init the platform config in consul
+  command: curl -X PUT -d '{{item.value}}' http://localhost:8500/v1/kv/{{item.key}}
+  with_items:
+    - {key: "cde/builder/config", value: '{"repo": "/repo", "build_wrapper": "hub.deepi.cn/cde/build-wrapper", "verify_wrapper": "hub.deepi.cn/cde/verify-wrapper"}'}
+    - {key: "cde/platform/config", value: "{\"registry\": {\"endpoint\": \"hub.deepi.cn\"}, \"marathon\": {\"endpoint\": \"http://192.168.50.5:8080\"}}"}
+    - {key: "cde/controller/endpoint", value: "http://192.168.50.4:31088"}
+
+
+
