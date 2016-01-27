@@ -29,6 +29,7 @@
     - {key: router/nginx/http/tcp_nopush, value: "off"}
     - {key: router/nginx/http/keepalive_timeout, value: 65}
     - {key: router/nginx/http/gzip, value: "on"}
+    - {key: router/nginx/http/server_names_hash_bucket_size, value: 1024}
 
 - name: init the platform config in consul
   command: curl -X PUT -d '{{item.value}}' http://localhost:8500/v1/kv/{{item.key}}
