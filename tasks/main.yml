@@ -37,6 +37,7 @@
     - {key: "cde/builder/config", value: '{"repo": "/repo", "build_wrapper": "hub.deepi.cn/cde/build-wrapper", "verify_wrapper": "hub.deepi.cn/cde/verify-wrapper"}'}
     - {key: "cde/platform/config", value: "{\"registry\": {\"endpoint\": \"hub.deepi.cn\"}, \"marathon\": {\"endpoint\": \"http://192.168.50.5:8080\"}}"}
     - {key: "cde/controller/endpoint", value: "http://192.168.50.4:31088"}
+    - {key: "cde/deployment/endpoint", value: "http://192.168.50.4:31089"}
 
 
 
