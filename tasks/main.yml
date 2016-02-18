@@ -2,7 +2,7 @@
 - debug: var=hostvars
 
 - name: install python pip
-  apt: name=python-pip
+  apt: name=python-pip update_cache=yes
 
 - name: install deps
   pip: name=python-consul
@@ -38,6 +38,3 @@
     - {key: "cde/platform/config", value: "{\"registry\": {\"endpoint\": \"hub.deepi.cn\"}, \"marathon\": {\"endpoint\": \"http://192.168.50.5:8080\"}}"}
     - {key: "cde/controller/endpoint", value: "http://192.168.50.4:31088"}
     - {key: "cde/deployment/endpoint", value: "http://192.168.50.4:31089"}
-
-
-
